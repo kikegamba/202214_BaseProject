@@ -8,13 +8,16 @@ export class SupermercadoEntity {
     id: string;
 
     @Column()
-    name: string;
+    nombre: string;
 
     @Column()
-    pais: string;
+    longitud: string;
 
     @Column()
-    numeroHabitantes: number;
+    latitud: string;
+
+    @Column()
+    paginaWeb: string;
 
     @ManyToMany(() => CiudadEntity, ciudad => ciudad.supermercados)
     @JoinTable()
