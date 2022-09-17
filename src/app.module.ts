@@ -6,6 +6,7 @@ import { CiudadEntity } from './ciudad/ciudad.entity';
 import { CiudadModule } from './ciudad/ciudad.module';
 import { SupermercadoEntity } from './supermercado/supermercado.entity';
 import { SupermercadoModule } from './supermercado/supermercado.module';
+import { SupermercadoCiudadModule } from './supermercado-ciudad/supermercado-ciudad.module';
 
 @Module({
   imports: [CiudadModule, SupermercadoModule,
@@ -20,7 +21,8 @@ import { SupermercadoModule } from './supermercado/supermercado.module';
       dropSchema: true,
       synchronize: true,
       keepConnectionAlive: true
-    }),],
+    }),
+    SupermercadoCiudadModule,],
   controllers: [AppController],
   providers: [AppService],
 })
