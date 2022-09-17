@@ -1,8 +1,8 @@
 import { Controller, UseInterceptors } from '@nestjs/common';
-import { BusinessErrorsInterceptor } from 'src/shared/interceptors/business-errors.interceptor';
+import { BusinessErrorsInterceptor } from '../shared/interceptors/business-errors.interceptor';
 import { CiudadService } from './ciudad.service';
 import { Body, Delete, Get, HttpCode, Param, Post, Put } from '@nestjs/common';
-import { CiudadDto } from 'src/dto/ciudad.dto';
+import { CiudadDto } from '../dto/ciudad.dto';
 import { CiudadEntity } from './ciudad.entity';
 import { plainToInstance } from 'class-transformer';
 
