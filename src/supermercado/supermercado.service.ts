@@ -28,7 +28,7 @@ export class SupermercadoService {
     }
     
     async create(supermarket: SupermercadoEntity): Promise<SupermercadoEntity> {
-        if (supermarket.nombre.length>10)
+        if (supermarket.nombre.length<10)
           throw new BusinessLogicException("The length of the supermarket name has to be larger than 10 characters", BusinessError.NOT_FOUND);
         return await this.supermercadoRepository.save(supermarket);
     }
