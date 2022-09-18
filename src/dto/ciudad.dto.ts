@@ -4,7 +4,7 @@ export class CiudadDto {
 
     @IsString()
     @IsNotEmpty()
-    readonly nombre: string;
+    readonly name: string;
     
     @IsString()
     @IsNotEmpty()

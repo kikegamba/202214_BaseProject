@@ -37,7 +37,7 @@ export class SupermercadoService {
         const persistedsupermarket: SupermercadoEntity = await this.supermercadoRepository.findOne({where:{id}});
         if (!persistedsupermarket)
           throw new BusinessLogicException("The supermarket with the given id was not found", BusinessError.NOT_FOUND);
-        if (supermarket.nombre.length>10)
+        if (supermarket.nombre.length<10)
           throw new BusinessLogicException("The length of the supermarket name has to be larger than 10 characters", BusinessError.NOT_FOUND);
       
         return await this.supermercadoRepository.save({...persistedsupermarket, ...supermarket});
