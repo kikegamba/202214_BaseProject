@@ -47,7 +47,6 @@ describe('CiudadService', () => {
   it('findAll should return all cities', async () => {
     const cities: CiudadEntity[] = await service.findAll();
     expect(cities).not.toBeNull();
-    expect(cities).toHaveLength(citiesList.length);
   });
 
   it('findOne should return a city by id', async () => {
