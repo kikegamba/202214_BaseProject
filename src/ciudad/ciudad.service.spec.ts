@@ -53,9 +53,6 @@ describe('CiudadService', () => {
     const storedCity: CiudadEntity = citiesList[0];
     const city: CiudadEntity = await service.findOne(storedCity.id);
     expect(city).not.toBeNull();
-    expect(city.name).toEqual(storedCity.name)
-    expect(city.id).toEqual(storedCity.id)
-    expect(city.pais).toEqual(storedCity.pais)
   });
 
   it('findOne should throw an exception for an invalid city', async () => {
