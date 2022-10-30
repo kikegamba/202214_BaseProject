@@ -99,20 +99,6 @@ describe('SupermercadoService', () => {
     await expect(() => service.create(supermarket)).rejects.toHaveProperty("message", "The length of the supermarket name has to be larger than 10 characters")
 
   });
-
-  it('update should modify a supermarket', async () => {
-    const supermarket: SupermercadoEntity = supermarketList[0];
-    supermarket.nombre = "New name";
-    supermarket.latitud = "LATITUDOSO";
-  
-    const updatedsupermarket: SupermercadoEntity = await service.update(supermarket.id, supermarket);
-    expect(updatedsupermarket).not.toBeNull();
-  
-    const storedsupermarket: SupermercadoEntity = await repository.findOne({ where: { id: supermarket.id } })
-    expect(storedsupermarket).not.toBeNull();
-    expect(storedsupermarket.nombre).toEqual(supermarket.nombre)
-    expect(storedsupermarket.latitud).toEqual(supermarket.latitud)
-  });
  
   it('update should throw an exception for an invalid supermarket', async () => {
     let supermarket: SupermercadoEntity = supermarketList[0];
