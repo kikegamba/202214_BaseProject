@@ -23,13 +23,17 @@ export class SupermercadoController {
     @Post()
     async create(@Body() supermarketDto: SupermercadoDto) {
       const supermarket: SupermercadoEntity = plainToInstance(SupermercadoEntity, supermarketDto);
-      const supermarket: SupermercadoEntity = plainToInstance(SupermercadoEntity, supermarketDto);
       return await this.supermarketService.create(supermarket);
     }
   
     @Put(':supermarketId')
     async update(@Param('supermarketId') supermarketId: string, @Body() supermarketDto: SupermercadoDto) {
       const supermarket: SupermercadoEntity = plainToInstance(SupermercadoEntity, supermarketDto);
+      return await this.supermarketService.update(supermarketId, supermarket);
+    }
+    
+        @Put(':supermarketId')
+    async updateNew(@Param('supermarketId') supermarketId: string, @Body() supermarketDto: SupermercadoDto) {
       const supermarket: SupermercadoEntity = plainToInstance(SupermercadoEntity, supermarketDto);
       return await this.supermarketService.update(supermarketId, supermarket);
     }
