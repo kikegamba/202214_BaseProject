@@ -20,7 +20,6 @@ export class CiudadService {
     ){}
 
     async findAll(): Promise<CiudadEntity[]> {
-        this.foo2();
         return await this.ciudadRepository.find({ relations: ["supermercados"] });
     }
 
@@ -28,7 +27,7 @@ export class CiudadService {
       return Promise.reject("rejection reason");
     }
 
-    async findOne(id: string): Promise<CiudadEntity> {
+    async findOne(id: string): Promise<CiudadEntity> {      
         const ciudad: CiudadEntity = await this.ciudadRepository.findOne({where: {id}, relations: ["supermercados"] } );        
         if (!ciudad)
           throw new BusinessLogicException("The ciudad with the given id was not found", BusinessError.NOT_FOUND);
@@ -43,17 +42,24 @@ export class CiudadService {
     }
 
     async update(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
-        const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
-      
-        if (!persistedciudad)
-          throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
-        if (!validateCountry(ciudad.pais))
-          throw new BusinessLogicException("The country doesnt belong to the country list", BusinessError.NOT_FOUND);
+      if (id == "1")
+        console.log("1");
+      else if (id == "2")
+      console.log("2");
+      else if (id == "1")  // Noncompliant
+      console.log("1");
 
-        return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
+      const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
+      
+      if (!persistedciudad)
+        throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
+      if (!validateCountry(ciudad.pais))
+        throw new BusinessLogicException("The country doesnt belong to the country list", BusinessError.NOT_FOUND);
+
+      return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
     }
 
-    async delete(id: string) {
+    async delete(id: string) {     
         const ciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
         if (!ciudad){
           throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
