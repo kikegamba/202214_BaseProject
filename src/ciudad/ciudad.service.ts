@@ -1,9 +1,8 @@
-import { Injectable, Abstract, All,ArgumentMetadata,ArgumentsHost,BadGatewayException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BusinessError, BusinessLogicException, validateCountry,CountryList } from '../shared/errors/business-errors';
 import { Repository } from 'typeorm';
 import { CiudadEntity } from './ciudad.entity';
-import { connect } from 'rxjs';
 
 @Injectable()
 export class CiudadService {
