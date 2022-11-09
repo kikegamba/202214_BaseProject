@@ -8,7 +8,6 @@ import { connect } from 'rxjs';
 @Injectable()
 export class CiudadService {
 
-    a = this.foo();
     flag : true;
     countries:["Argentina","Ecuador","Paraguay"] 
     a2 = this.foo2();
@@ -26,14 +25,6 @@ export class CiudadService {
 
     runPromise() {
       return Promise.reject("rejection reason");
-    }
-    
-    foo() {
-      try { // Noncompliant, the catch clause of the 'try' will not be executed for the code inside promise
-        this.runPromise();
-      } catch (e) {
-        console.log("Failed to run promise", e);
-      }
     }
 
     async findOne(id: string): Promise<CiudadEntity> {
