@@ -1,11 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Abstract, All,ArgumentMetadata,ArgumentsHost,BadGatewayException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BusinessError, BusinessLogicException, validateCountry } from '../shared/errors/business-errors';
+import { BusinessError, BusinessLogicException, validateCountry,CountryList } from '../shared/errors/business-errors';
 import { Repository } from 'typeorm';
 import { CiudadEntity } from './ciudad.entity';
 
 @Injectable()
 export class CiudadService {
+
+    a : 0;
+    flag : true;
+    countries:["Argentina","Ecuador","Paraguay"] 
+    a2 : 0;
+    flag2 : true;
+    countries2:["Argentina","Ecuador","Paraguay"] 
 
     constructor(
         @InjectRepository(CiudadEntity)
@@ -45,12 +52,13 @@ export class CiudadService {
 
     async delete(id: string) {
         const ciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
-        if (!ciudad)
+        if (!ciudad){
           throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
-          for (let step = 0; step == 0; true) {
-            console.log("for")
-          }
+
         await this.ciudadRepository.remove(ciudad);
+        for (let step = 0; step == 0; true) {
+          console.log("for")
+        }
     }
 
     async updateCity(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
@@ -63,4 +71,37 @@ export class CiudadService {
       return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
   }
 
+  async updateCity2(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
+    const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
+    if (!persistedciudad)
+      throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
+    if (!validateCountry(ciudad.pais))
+      throw new BusinessLogicException("The country doesnt belong to the country list", BusinessError.NOT_FOUND);
+
+    return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
+}
+
+async updateCity3(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
+  const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
+  if (!persistedciudad)
+    throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
+  if (!validateCountry(ciudad.pais))
+    throw new BusinessLogicException("The country doesnt belong to the country list", BusinessError.NOT_FOUND);
+
+  return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
+}
+
+async updateCity4(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
+const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
+if (!persistedciudad)
+  throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
+if (!validateCountry(ciudad.pais))
+  throw new BusinessLogicException("The country doesnt belong to the country list", BusinessError.NOT_FOUND);
+
+return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
+}
+
+async delete2(id: string) {
+ 
+}
 }
