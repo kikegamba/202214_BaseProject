@@ -7,10 +7,6 @@ import { CiudadEntity } from './ciudad.entity';
 @Injectable()
 export class CiudadService {
 
-    a : 0;
-    flag : true;
-    countries:["Argentina","Ecuador","Paraguay"] 
-
     constructor(
         @InjectRepository(CiudadEntity)
         private readonly ciudadRepository: Repository<CiudadEntity>
@@ -62,13 +58,4 @@ export class CiudadService {
       return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
   }
 
-  async updateCity2(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
-    const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
-    if (!persistedciudad)
-      throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
-    if (!validateCountry(ciudad.pais))
-      throw new BusinessLogicException("The country doesnt belong to the country list", BusinessError.NOT_FOUND);
-
-    return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
-}
 }
