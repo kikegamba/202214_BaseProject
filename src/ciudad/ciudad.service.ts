@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Abstract, All,ArgumentMetadata,ArgumentsHost,BadGatewayException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BusinessError, BusinessLogicException, validateCountry } from '../shared/errors/business-errors';
+import { BusinessError, BusinessLogicException, validateCountry,CountryList } from '../shared/errors/business-errors';
 import { Repository } from 'typeorm';
 import { CiudadEntity } from './ciudad.entity';
+import { connect } from 'rxjs';
 
 @Injectable()
 export class CiudadService {
@@ -16,7 +17,7 @@ export class CiudadService {
         return await this.ciudadRepository.find({ relations: ["supermercados"] });
     }
 
-    async findOne(id: string): Promise<CiudadEntity> {
+     async findOne(id: string): Promise<CiudadEntity> {
         const ciudad: CiudadEntity = await this.ciudadRepository.findOne({where: {id}, relations: ["supermercados"] } );
         if (!ciudad)
           throw new BusinessLogicException("The ciudad with the given id was not found", BusinessError.NOT_FOUND);
@@ -42,9 +43,10 @@ export class CiudadService {
 
     async delete(id: string) {
         const ciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
-        if (!ciudad)
+        if (!ciudad){
           throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
-      
         await this.ciudadRepository.remove(ciudad);
+      
     }
+  }
 }
