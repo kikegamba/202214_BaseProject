@@ -59,4 +59,8 @@ export class CiudadService {
         }
         await this.ciudadRepository.remove(ciudad);
   }
+    
+  foo2() {
+  console.log("Hello, World!");
+}
 }
