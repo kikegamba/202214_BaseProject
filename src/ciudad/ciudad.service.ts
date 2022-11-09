@@ -1,4 +1,4 @@
-import { Injectable, Abstract } from '@nestjs/common';
+import { Injectable, Abstract, All,ArgumentMetadata,ArgumentsHost,BadGatewayException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BusinessError, BusinessLogicException, validateCountry,CountryList } from '../shared/errors/business-errors';
 import { Repository } from 'typeorm';
@@ -93,5 +93,9 @@ if (!validateCountry(ciudad.pais))
   throw new BusinessLogicException("The country doesnt belong to the country list", BusinessError.NOT_FOUND);
 
 return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
+}
+
+async delete2(id: string) {
+ 
 }
 }
