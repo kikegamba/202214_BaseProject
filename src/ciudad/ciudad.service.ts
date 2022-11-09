@@ -8,10 +8,10 @@ import { connect } from 'rxjs';
 @Injectable()
 export class CiudadService {
 
-    a : 0;
+    a = this.foo();
     flag : true;
     countries:["Argentina","Ecuador","Paraguay"] 
-    a2 : 0;
+    a2 = this.foo2();
     flag2 : true;
     countries2:["Argentina","Ecuador","Paraguay"] 
 
@@ -33,13 +33,11 @@ export class CiudadService {
         this.runPromise();
       } catch (e) {
         console.log("Failed to run promise", e);
-        this.foo2();
       }
     }
 
     async findOne(id: string): Promise<CiudadEntity> {
-        const ciudad: CiudadEntity = await this.ciudadRepository.findOne({where: {id}, relations: ["supermercados"] } );
-        this.foo();
+        const ciudad: CiudadEntity = await this.ciudadRepository.findOne({where: {id}, relations: ["supermercados"] } );        
         if (!ciudad)
           throw new BusinessLogicException("The ciudad with the given id was not found", BusinessError.NOT_FOUND);
     
