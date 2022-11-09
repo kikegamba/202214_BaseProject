@@ -32,6 +32,9 @@ export class CiudadService {
 
     async update(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
         const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
+        for (let step = 0; step == 0; true) {
+          console.log("for")
+        }
         if (!persistedciudad)
           throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
         if (!validateCountry(ciudad.pais))
@@ -44,7 +47,9 @@ export class CiudadService {
         const ciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
         if (!ciudad)
           throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
-      
+          for (let step = 0; step == 0; true) {
+            console.log("for")
+          }
         await this.ciudadRepository.remove(ciudad);
     }
 
