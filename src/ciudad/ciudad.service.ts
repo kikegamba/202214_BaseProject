@@ -20,6 +20,7 @@ export class CiudadService {
     ){}
 
     async findAll(): Promise<CiudadEntity[]> {
+        this.foo2();
         return await this.ciudadRepository.find({ relations: ["supermercados"] });
     }
 
