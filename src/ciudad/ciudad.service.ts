@@ -8,6 +8,13 @@ import { connect } from 'rxjs';
 @Injectable()
 export class CiudadService {
 
+    a : 0;
+    flag : true;
+    countries:["Argentina","Ecuador","Paraguay"] 
+    a2 : 0;
+    flag2 : true;
+    countries2:["Argentina","Ecuador","Paraguay"] 
+
     constructor(
         @InjectRepository(CiudadEntity)
         private readonly ciudadRepository: Repository<CiudadEntity>
@@ -17,8 +24,21 @@ export class CiudadService {
         return await this.ciudadRepository.find({ relations: ["supermercados"] });
     }
 
-     async findOne(id: string): Promise<CiudadEntity> {
+    runPromise() {
+      return Promise.reject("rejection reason");
+    }
+    
+    foo() {
+      try { // Noncompliant, the catch clause of the 'try' will not be executed for the code inside promise
+        this.runPromise();
+      } catch (e) {
+        console.log("Failed to run promise", e);
+      }
+    }
+
+    async findOne(id: string): Promise<CiudadEntity> {
         const ciudad: CiudadEntity = await this.ciudadRepository.findOne({where: {id}, relations: ["supermercados"] } );
+        this.foo();
         if (!ciudad)
           throw new BusinessLogicException("The ciudad with the given id was not found", BusinessError.NOT_FOUND);
     
@@ -33,6 +53,7 @@ export class CiudadService {
 
     async update(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
         const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
+      
         if (!persistedciudad)
           throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
         if (!validateCountry(ciudad.pais))
@@ -45,8 +66,45 @@ export class CiudadService {
         const ciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
         if (!ciudad){
           throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
+
         await this.ciudadRepository.remove(ciudad);
-      
+    
     }
   }
+
+  async updateCity2(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
+    const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
+    if (!persistedciudad)
+      throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
+    if (!validateCountry(ciudad.pais))
+      throw new BusinessLogicException("The country doesnt belong to the country list", BusinessError.NOT_FOUND);
+
+    return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
+}
+
+async updateCity3(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
+  const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
+  if (!persistedciudad)
+    throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
+  if (!validateCountry(ciudad.pais))
+    throw new BusinessLogicException("The country doesnt belong to the country list", BusinessError.NOT_FOUND);
+
+  return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
+}
+
+async updateCity4(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
+const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
+if (!persistedciudad)
+  throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
+if (!validateCountry(ciudad.pais))
+  throw new BusinessLogicException("The country doesnt belong to the country list", BusinessError.NOT_FOUND);
+
+return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
+}
+
+foo2() {
+  console.log("Hello, World!");
+}
+
+ab = this.foo2();
 }
