@@ -65,10 +65,8 @@ export class CiudadService {
         const ciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
         if (!ciudad){
           throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
-
+        }
         await this.ciudadRepository.remove(ciudad);
-    
-    }
   }
 
   async updateCity2(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
