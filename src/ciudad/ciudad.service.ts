@@ -33,6 +33,7 @@ export class CiudadService {
         this.runPromise();
       } catch (e) {
         console.log("Failed to run promise", e);
+        this.foo2();
       }
     }
 
@@ -106,5 +107,4 @@ foo2() {
   console.log("Hello, World!");
 }
 
-ab = this.foo2();
 }
