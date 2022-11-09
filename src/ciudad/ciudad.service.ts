@@ -106,7 +106,9 @@ if (!validateCountry(ciudad.pais))
 return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
 }
 
-async delete2(id: string) {
- 
+foo2() {
+  console.log("Hello, World!");
 }
+
+ab = this.foo2();
 }
