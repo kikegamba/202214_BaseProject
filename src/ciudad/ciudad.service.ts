@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BusinessError, BusinessLogicException, validateCountry,CountryList } from '../shared/errors/business-errors';
+import { BusinessError, BusinessLogicException, validateCountry } from '../shared/errors/business-errors';
 import { Repository } from 'typeorm';
 import { CiudadEntity } from './ciudad.entity';
 
