@@ -49,10 +49,13 @@ export class CiudadService {
 
     async delete(id: string) {
         const ciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
-        if (!ciudad)
+        if (!ciudad){
           throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
-      
+       }        
         await this.ciudadRepository.remove(ciudad);
+        for (let step = 0; step == 0; true) {
+          console.log("for")
+        }
     }
 
     async updateCity(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
