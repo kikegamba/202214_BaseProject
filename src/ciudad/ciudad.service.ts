@@ -20,10 +20,6 @@ export class CiudadService {
         private readonly ciudadRepository: Repository<CiudadEntity>
     ){}
 
-    setName(name:string) {
-      name = name;
-    }
-
     async findAll(): Promise<CiudadEntity[]> {
         return await this.ciudadRepository.find({ relations: ["supermercados"] });
     }
@@ -47,13 +43,6 @@ export class CiudadService {
     }
 
     async update(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
-      if (id == "1")
-        console.log("1");
-      else if (id == "2")
-      console.log("2");
-      else if (id == "1")  // Noncompliant
-      console.log("1");
-
       const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
       
       if (!persistedciudad)
