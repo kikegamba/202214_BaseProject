@@ -59,19 +59,4 @@ export class CiudadService {
         }
         await this.ciudadRepository.remove(ciudad);
   }
-
-async updateCity4(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
-const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
-if (!persistedciudad)
-  throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
-if (!validateCountry(ciudad.pais))
-  throw new BusinessLogicException("The country doesnt belong to the country list", BusinessError.NOT_FOUND);
-
-return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
-}
-
-foo2() {
-  console.log("Hello, World!");
-}
-
 }
