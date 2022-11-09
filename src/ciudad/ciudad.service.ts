@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { BusinessError, BusinessLogicException, validateCountry,CountryList } from '../shared/errors/business-errors';
 import { Repository } from 'typeorm';
 import { CiudadEntity } from './ciudad.entity';
+import { connect } from 'rxjs';
 
 @Injectable()
 export class CiudadService {
@@ -23,8 +24,21 @@ export class CiudadService {
         return await this.ciudadRepository.find({ relations: ["supermercados"] });
     }
 
+    runPromise() {
+      return Promise.reject("rejection reason");
+    }
+    
+    foo() {
+      try { // Noncompliant, the catch clause of the 'try' will not be executed for the code inside promise
+        this.runPromise();
+      } catch (e) {
+        console.log("Failed to run promise", e);
+      }
+    }
+
     async findOne(id: string): Promise<CiudadEntity> {
         const ciudad: CiudadEntity = await this.ciudadRepository.findOne({where: {id}, relations: ["supermercados"] } );
+        this.foo();
         if (!ciudad)
           throw new BusinessLogicException("The ciudad with the given id was not found", BusinessError.NOT_FOUND);
     
@@ -60,15 +74,6 @@ export class CiudadService {
           console.log("for")
         }
     }
-
-    async updateCity(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
-      const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
-      if (!persistedciudad)
-        throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
-      if (!validateCountry(ciudad.pais))
-        throw new BusinessLogicException("The country doesnt belong to the country list", BusinessError.NOT_FOUND);
-
-      return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
   }
 
   async updateCity2(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
