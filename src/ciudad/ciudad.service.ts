@@ -13,11 +13,16 @@ export class CiudadService {
     a2 = this.foo2();
     flag2 : true;
     countries2:["Argentina","Ecuador","Paraguay"] 
+    
 
     constructor(
         @InjectRepository(CiudadEntity)
         private readonly ciudadRepository: Repository<CiudadEntity>
     ){}
+
+    setName(name:string) {
+      name = name;
+    }
 
     async findAll(): Promise<CiudadEntity[]> {
         return await this.ciudadRepository.find({ relations: ["supermercados"] });
@@ -79,11 +84,11 @@ export class CiudadService {
 
 async updateCity3(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
   const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
-  if (!persistedciudad)
+  if (!persistedciudad) {
     throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
-  if (!validateCountry(ciudad.pais))
-    throw new BusinessLogicException("The country doesnt belong to the country list", BusinessError.NOT_FOUND);
-
+  } if (!validateCountry(ciudad.pais)) {
+      throw new BusinessLogicException("The country doesnt belong to the country list", BusinessError.NOT_FOUND);
+  }
   return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
 }
 
