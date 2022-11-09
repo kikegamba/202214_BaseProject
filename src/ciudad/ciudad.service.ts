@@ -74,7 +74,8 @@ async updateCity3(id: string, ciudad: CiudadEntity): Promise<CiudadEntity> {
   const persistedciudad: CiudadEntity = await this.ciudadRepository.findOne({where:{id}});
   if (!persistedciudad) {
     throw new BusinessLogicException("The city with the given id was not found", BusinessError.NOT_FOUND);
-  } if (!validateCountry(ciudad.pais)) {
+  } 
+  if (!validateCountry(ciudad.pais)) {
       throw new BusinessLogicException("The country doesnt belong to the country list", BusinessError.NOT_FOUND);
   }
   return await this.ciudadRepository.save({...persistedciudad, ...ciudad});
